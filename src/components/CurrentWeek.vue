@@ -20,9 +20,14 @@
           >
             <template slot="title">
               {{ item.title }}
-              <el-button plain @click="edit(item.id)" icon="el-icon-edit" circle
-                >编辑</el-button
-              >
+              <div class="check">
+                <el-link icon="el-icon-view"
+                  >查看
+                </el-link>
+              </div >
+              <div class="edit" @click="edit(item.id)">
+                <el-link icon="el-icon-edit">编辑</el-link>
+              </div>
             </template>
             <mavon-editor
               v-model="item.content"
@@ -84,13 +89,21 @@ export default {
 }
 
 .el-collapse-item__header {
-  font-size: 20px !important;
+  font-size: 30px !important;
   padding-left: 30px;
+  height: 60px !important;
 }
-.el-button {
-  border: 0px !important;
-  padding-top: 20px !important ;
+.el-collapse-item{
+  position: relative;
 }
-.active {
+.check{
+position: absolute;
+left: 105px;
+
 }
+.edit{
+  position: absolute;
+  left: 160px;
+}
+
 </style>
