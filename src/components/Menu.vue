@@ -1,6 +1,7 @@
 <!--  -->
 <template>
   <div class="menu">
+  
     <router-link class="blog-name" to="/Menu/CurrentWeek" style="text-decoration: none;">Visualize Group </router-link>
     <el-menu
       :default-active="$route.path"
@@ -19,8 +20,8 @@
           v-for="(item, index) in UserList"
           :key="index"
           :name="index"
-          @click="test(item)"
-          >{{ item }}</el-menu-item
+          @click="test(item.id)"
+          >{{ item.username }}</el-menu-item
         >
       </el-submenu>
 
@@ -40,10 +41,11 @@
     </el-menu>
     <router-view :key="$route.fullPath" style="box-shadow: 10px 10px 10px #d1d9e6, -10px -10px 10px #f9f9f9;"></router-view>
   </div>
+  
 </template>
 
 <script>
-import { getUsers } from "@/api/api";
+import { getUsers }  from "@/api/api";
 export default {
   data() {
     return {
@@ -59,6 +61,7 @@ export default {
   },
   created() {
     getUsers().then((r) => {
+      console.log(r)
       this.UserList = r.data;
       console.log(this.UserList);
     });

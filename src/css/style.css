@@ -105,8 +105,14 @@ body {
   border-bottom: 1px solid #a0a5a8;
   line-height: 2;
 }
+.form_item{
+  align-self: flex-start ;
+  padding-left:100px;
+  margin-top: 10px;
 
-.title {
+}
+
+.title1 {
   font-size: 34px;
   font-weight: 700;
   line-height: 3;

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui';
+import { Message, MessageBox } from 'element-ui';
 import router from '../router'
 
 
@@ -7,7 +7,7 @@ import router from '../router'
 const request = axios.create({
  //baseURL: "http://192.168.196.22:8082", // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 50000 // request timeout
+  timeout: 500000 // request timeout
 })
 
 // request interceptor
@@ -29,11 +29,26 @@ request.interceptors.request.use(
 
 // response interceptor
 request.interceptors.response.use(data=>{
-  if (data.status && data.status == 200 && data.data.status == 'error') {
-    Message.error({message: data.data.msg});
-    return;
+  const res = data.data
+
+  if (res === '尚未登录，请先登录'||res==="session失效，请重新登录") {
+    Message({
+      message: res || 'Error',
+      type: 'error',
+      duration: 5 * 1000
+    })
+    MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
+      confirmButtonText: 'Re-Login',
+      cancelButtonText: 'Cancel',
+      type: 'warning'
+    }).then(() => {
+      localStorage.clear()
+      location.reload()
+     
+    })
   }
-  return data;
+   
+    return res
 }, err=> {
 //==============  错误处理  ====================
    if (err && err.response) {

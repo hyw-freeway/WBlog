@@ -11,8 +11,8 @@
         :rules="rules"
         label-width="60px"
       >
-        <el-form-item  label="名 字" prop="title">
-          <el-input  style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04); " v-model="markdownForm.title"></el-input>
+        <el-form-item  label="标 题" prop="title">
+          <el-input  style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04); " v-model="markdownForm.title" placeholder="请输入：第xx周周报"></el-input>
         </el-form-item>
       </el-form>
       <mavon-editor
@@ -44,6 +44,7 @@
 import {
   getMarkdownArticleByAid,
   saveMarkdownArticle,
+  createMarkdownArticle,
   uploadImg,
   getImg
 } from "@/api/markdownArticle";
@@ -103,7 +104,7 @@ export default {
         title: "",
         content: "",
         // publishDate:"",
-        // uid:""
+        uid:1
         // contentHtml:null,
         //type:0
       },
@@ -155,15 +156,27 @@ export default {
       console.log("保存文章，上传服务器");
       this.markdownForm.id = this.getAid();
       console.log(this.markdownForm);
-      saveMarkdownArticle(this.markdownForm)
-        .then((r) => {
-          this.$message.success("保存成功");
-          //this.markdownForm.id=r.data.id
-          this.lastSaveTime = new Date();
-        })
-        .catch((e) => {
-          console.log(e);
-        });}
+      if(this.markdownForm.id==null){
+        createMarkdownArticle(this.markdownForm)
+          .then((r) => {
+            this.$message.success('创建成功')
+            // this.markdownForm.id=r.data.id
+            this.lastSaveTime = new Date()
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+          }else{
+            saveMarkdownArticle(this.markdownForm)
+             .then((r) => {
+            this.$message.success('保存成功')
+            // this.markdownForm.id=r.data.id
+            this.lastSaveTime = new Date()
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+          }}
     },
     intervalSave() {
       //自动保存

@@ -5,6 +5,7 @@ import Wedit from "@/components/Wedit.vue"
 import PerWeek from "@/components/PerWeek.vue"
 import PerPerson from "@/components/PerPerson.vue"
 import Login33 from "@/components/Login33.vue"
+//import { Menu } from 'element-ui'
 import Menu from "@/components/Menu.vue"
 
 Vue.use(Router)
@@ -26,8 +27,9 @@ export default new Router({
     },
     {
       path: '/Menu',
-      name: 'Menu',
+      
       component: Menu,
+      
       children: [
         {
           path: '/',

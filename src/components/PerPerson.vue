@@ -11,7 +11,7 @@
           :name="index"
         >
           <template slot="title">
-            {{ item.title }}
+            <div>{{ item.title }}</div>
             <div class="check">
                 <el-link icon="el-icon-view"
                   >查看
@@ -117,11 +117,11 @@ export default {
 }
 .check{
 position: absolute;
-left: 105px;
+left: 165px;
 
 }
 .edit{
   position: absolute;
-  left: 160px;
+  left: 220px;
 }
 </style>

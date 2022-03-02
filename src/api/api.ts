@@ -10,9 +10,16 @@ import { Article } from './data'
       params:{time},
     })
   }
+  export function getSession() {
+    return request({
+      url: '/api/getSessionId',
+      method: 'get'
+  
+    })
+  }
   export function getUsers() {
     return request({
-      url: '/api/article/selectAllUser',
+      url: '/api/selectAllUsers',
       method: 'get',
      
     })

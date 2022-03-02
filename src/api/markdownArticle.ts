@@ -19,8 +19,8 @@ import { Article } from './data'
 
 export function saveMarkdownArticle(data:Article) {
     return request({
-      url: '/api/article/add',
-      method: 'post',
+      url: '/api/article/updateArticle',
+      method: 'put',
       data
     })
   }
@@ -30,6 +30,13 @@ export function saveMarkdownArticle(data:Article) {
       url: '/api/article/show/'+id,
       method: 'get',
       params:{id}
+    })
+  }
+  export function createMarkdownArticle(data:Article) {
+    return request({
+      url: '/api/article/add',
+      method: 'post',
+      data
     })
   }
   export function uploadImg(data:string) {

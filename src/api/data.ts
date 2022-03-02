@@ -5,5 +5,5 @@ export type Article = {
    // id: number,
    // publishDate: string,
     title: string,
-   // uid: number
+    uid: number
 }
