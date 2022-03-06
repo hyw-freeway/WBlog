@@ -4,12 +4,26 @@
     <el-container
       style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);"
     >
-      <el-header class="tit" height="40px">第{{ week }}周周报</el-header>
+      <el-header class="tit" height="40px">
+        <div>第{{ week }}周周报</div>
+<div
+            class="expand"
+            v-if="activeName.length === 0"
+            @click="allExpand"
+            >
+            <el-link icon="el-icon-arrow-down">展开所有</el-link>
+            </div>
+          <div
+            class="expand"
+            v-else
+            @click="allShrink"
+            ><el-link icon="el-icon-arrow-up">折叠所有</el-link></div>
+        </el-header>
       <el-main class="mains">
         <el-card class="box-card" v-show="postListPerWeek.length == 0">
           <div v-show="postListPerWeek.length == 0">此周暂无周报</div>
         </el-card>
-        <el-collapse accordion>
+        <el-collapse  v-model="activeName">
           <el-collapse-item
             v-for="(item, index) in postListPerWeek"
             :key="index"
@@ -47,6 +61,7 @@ export default {
   name: "PerWeek",
   data() {
     return {
+      activeName:[],
       selectDate: "",
       postListPerWeek: [],
       week: "",
@@ -61,19 +76,38 @@ export default {
       console.log(aid);
       this.$router.push({ path: "/Menu/Wedit", query: { Aid: aid } });
     },
+     allExpand() {
+      this.activeName = [];
+
+      for (let i = 0; i < this.postListPerWeek.length; i++) {
+        this.activeName.push(i);
+      }
+    },
+    allShrink() {
+      this.activeName = [];
+    },
   },
   created() {
     let time = this.getSelectDate();
+     if(time){
     this.week = (parseInt(getWeekNumber(time)) - 1).toString();
     console.log(time);
     getPostsByWeek(time).then((r) => {
-      this.postListPerWeek = r.data;
+      console.log(r)
+      this.postListPerWeek = r;
     });
+     }else{
+       console.log("未选择时间")
+     }
   },
   mounted() {
     let time = this.getSelectDate();
+    if(time){
     this.week = (parseInt(getWeekNumber(time)) - 1).toString();
     console.log(time);
+    }else{
+      console.log("未选择时间")
+    }
   },
 };
 </script>
@@ -90,6 +124,11 @@ export default {
 .mains {
   margin-top: 0px;
   padding-top: 10px;
+}
+.expand {
+  font-size: 15px;
+  float: right;
+  //margin:5px 0 10px 0;
 }
 .card {
   margin-top: 0px;

@@ -137,10 +137,11 @@ export default {
       } else {
         getMarkdownArticleByAid(aid)
           .then((r) => {
+            console.log(r)
             this.markdownForm.content =
-              r.data.content == null ? "" : r.data.content;
-            this.markdownForm.id = r.data.id;
-            this.markdownForm.title = r.data.title;
+              r.content == null ? "" : r.content;
+            this.markdownForm.id = r.id;
+            this.markdownForm.title = r.title;
             // this.markdownForm.type=r.data.type
           })
           .catch((e) => {
@@ -200,7 +201,8 @@ export default {
       console.log(typeof(base64Data))
       console.log(base64Data)
       uploadImg(base64Data).then(r => {
-        this.$refs.md.$img2Url(pos, '/api/article/image/'+r.data.msg);
+         console.log(r)
+        this.$refs.md.$img2Url(pos, '/api/article/image/'+r.msg);
       }).catch(e => {
         console.log(e)
       })
@@ -223,7 +225,7 @@ export default {
 <style>
 .bjq {
   height: 578px;
-  width: auto;
+  width: auto !important;
 }
 .app-container {
   padding-top:20px;
@@ -231,28 +233,11 @@ export default {
   margin:auto;
   width: 90%;
 }
-.el-container {
+/* .el-container {
   margin-top: 10px;
   margin-bottom: 10px;
-}
-/* .switch__circle {
-
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background-color: #ecf0f3;
-  box-shadow: inset 8px 8px 12px #d1d9e6, inset -8px -8px 12px #f9f9f9;
-  bottom: -15%;
-  left: -20%;
-  
- 
-}
-.switch__circle--t {
-  top: -1%;
-  left: 90%;
-  width: 300px;
-  height: 300px;
 } */
+
 .el-button{
    width: 100px;
   height: 50px;

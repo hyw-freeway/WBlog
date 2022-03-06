@@ -1,6 +1,6 @@
 
 import request from '@/utils/request'
-import { Article } from './data'
+import { Article ,RegForm } from './data'
 
   
   export function getPostsByWeek(time:string) {
@@ -38,5 +38,13 @@ import { Article } from './data'
       params:{password,username},
     })
   }
+  export function register(data:RegForm) {
+    return request({
+      url: '/api/register',
+      method: 'post',
+      data
+    })
+  }
+  
 
   

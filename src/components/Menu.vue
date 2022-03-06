@@ -20,7 +20,7 @@
           v-for="(item, index) in UserList"
           :key="index"
           :name="index"
-          @click="test(item.id)"
+          @click="test(item.id,item.username)"
           >{{ item.username }}</el-menu-item
         >
       </el-submenu>
@@ -62,7 +62,7 @@ export default {
   created() {
     getUsers().then((r) => {
       console.log(r)
-      this.UserList = r.data;
+      this.UserList = r;
       console.log(this.UserList);
     });
   },
@@ -71,8 +71,8 @@ export default {
       console.log(key, keyPath);
       this.$router.push(key);
     },
-    test(uid) {
-      this.$router.push({ path: "/Menu/PerPerson", query: { Uid: uid } });
+    test(uid,username) {
+      this.$router.push({ path: "/Menu/PerPerson", query: { Uid: uid ,Username:username} });
     },
     selectDate(value) {
       this.$router.push({

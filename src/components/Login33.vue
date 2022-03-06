@@ -26,15 +26,15 @@
           <input
             class="form__input"
             type="text"
-            placeholder="Name"
-            v-model="regForm.name"
+            placeholder="Username"
+            v-model="regForm.username"
           
           />
           <input
             class="form__input"
             type="text"
-            placeholder="username"
-            v-model="regForm.username"
+            placeholder="Email"
+            v-model="regForm.email"
           />
           <input
             class="form__input"
@@ -42,7 +42,7 @@
             placeholder="Password"
             v-model="regForm.password"
           />
-          <button class="form__button button submit">注册</button>
+          <button class="form__button button submit" @click="register">注册</button>
         </form>
       </div>
       <div
@@ -84,7 +84,7 @@
         </div>
           <a class="form__link">Forgot your password?</a>
         
-          <button class="form__button button submit" @click="submitForm">
+          <button class="form__button button submit" @click.prevent="submitForm">
             登录
           </button>
         </form>
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import { login ,getSession} from "../api/api";
+import { login ,getSession,register} from "../api/api";
 import { Message } from "element-ui";
 export default {
   name: "Login33",
@@ -135,7 +135,8 @@ export default {
       regForm: {
         username: "",
      password: "",
-        name: "",
+        email: "",
+        enabled: true
       },
       loginRules: {
         username: [{ required: true, message: "请输入账号", trigger: "blur" }],
@@ -178,6 +179,27 @@ created(){
             })
         }
        } )}},
+    register(){
+       if (this.regForm.password === '' || this.regForm.username === '' || this.regForm.email === '') {
+        Message('账号或密码或邮箱不能为空')
+      } else {
+        
+        console.log(this.regForm)
+        register(this.regForm).then((res) => {
+          console.log(res)
+          if (res.status == 'success') {
+              Message("注册成功，请重新登录")
+            this.$router.push('/')
+          } 
+          else if(res.msg=="用户名重复，注册失败!"){
+              Message("用户名重复，请联系管理员")
+          }
+          else {
+            Message('注册失败，请重新注册')
+          }
+        })
+      }
+    },
     flip() {
       this.isActive = !this.isActive;
     },
