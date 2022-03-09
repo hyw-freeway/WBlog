@@ -167,17 +167,11 @@ created(){
         console.log("111")
         login(this.loginForm.password, this.loginForm.username).then((res) => {
           console.log(res);
-          if (res.data == "Bad credentials") {
+            localStorage.setItem("token",res.sessionId)
+            this.$router.push("/Menu/CurrentWeek");
+          if (res == "Bad credentials") {
             Message("账号或密码错误，请重试");
-          } else {
-            getSession().then((res) => {
-              localStorage.setItem('token', res)
-              // console.log(res);
-              if (res) {
-              this.$router.push("/Menu/CurrentWeek");
-            }
-            })
-        }
+          } 
        } )}},
     register(){
        if (this.regForm.password === '' || this.regForm.username === '' || this.regForm.email === '') {
