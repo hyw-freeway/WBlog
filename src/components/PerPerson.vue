@@ -1,6 +1,9 @@
 <!--  -->
 <template>
-    <div class="currentW">
+    <div class="currentW"
+    v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading">
       <el-container style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
       <el-header class="tit" height="40px">
         <div>{{ username }}的周报</div>
@@ -41,6 +44,9 @@
             :boxShadow="false"
             defaultOpen="preview"
             :toolbarsFlag="false"
+                :externalLink="externalLink"
+      :codeStyle="codeStyle"
+
           />
         </el-collapse-item>
       </el-collapse>
@@ -58,24 +64,58 @@ export default {
     this.username = this.getUsername();
     if (this.uid == null) {
       this.postListPerPerson = [];
+      loading=false
     } else {
       getPostsByUid(this.uid)
         .then((r) => {
           console.log(r)
           this.postListPerPerson = r;
+          this.loading=false
         })
         .catch((e) => {
           console.log(e);
         });
     }
   },
+  mounted(){
+    let that = this;
+        that.codeStyle = "atom-one-dark";
+  },
   data() {
     return {
+      loading:true,
+      codeStyle:"",
       activeName: [],
       username:null,
       uid: null,
       postListPerPerson: [],
       person: "",
+       externalLink: {
+            markdown_css: function() {
+                // 这是你的markdown css文件路径
+                return '/mavon-editor/markdown/github-markdown.min.css';
+            },
+            hljs_js: function() {
+                // 这是你的hljs文件路径
+                return '/mavon-editor/highlightjs/highlight.min.js';
+            },
+            hljs_css: function(css) {
+                // 这是你的代码高亮配色文件路径
+                return '/mavon-editor/highlightjs/styles/' + css + '.min.css';
+            },
+            hljs_lang: function(lang) {
+                // 这是你的代码高亮语言解析路径
+                return '/mavon-editor/highlightjs/languages/' + lang + '.min.js';
+            },
+            katex_css: function() {
+                // 这是你的katex配色方案路径路径
+                return '/mavon-editor/katex/katex.min.css';
+            },
+            katex_js: function() {
+                // 这是你的katex.js路径
+                return '/mavon-editor/katex/katex.min.js';
+            },
+        }
     };
   },
   methods: {
