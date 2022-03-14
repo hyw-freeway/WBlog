@@ -12,7 +12,7 @@
         label-width="60px"
       >
         <el-form-item  label="标 题" prop="title">
-          <el-input  style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04); " v-model="markdownForm.title" placeholder="请输入：第xx周周报"></el-input>
+          <el-input  style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04); " v-model="markdownForm.title" placeholder="请输入：XXX的周报"></el-input>
         </el-form-item>
       </el-form>
       <mavon-editor

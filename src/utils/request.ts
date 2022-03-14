@@ -2,10 +2,16 @@ import axios from 'axios'
 import { Message, MessageBox } from 'element-ui';
 import router from '../router'
 
-
+let baseURL = "/api"
+if(process.env.NODE_ENV === "development"){
+  baseURL = "http://192.168.196.22:8082"
+}else if (process.env.NODE_ENV === "production"){
+  baseURL = "http://47.101.198.23:8082"
+}
 // create an axios instance
 const request = axios.create({
- //baseURL: "http://192.168.196.22:8082", // url = base url + request url
+  baseURL,
+// baseURL: "http://192.168.196.22:8082", // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 500000 // request timeout
 })

@@ -19,7 +19,7 @@ import { Article } from './data'
 
 export function saveMarkdownArticle(data:Article) {
     return request({
-      url: '/api/article/updateArticle',
+      url: '/article/updateArticle',
       method: 'put',
       data
     })
@@ -27,21 +27,21 @@ export function saveMarkdownArticle(data:Article) {
   
   export function getMarkdownArticleByAid(id:number) {
     return request({
-      url: '/api/article/show/'+id,
+      url: '/article/show/'+id,
       method: 'get',
       params:{id}
     })
   }
   export function createMarkdownArticle(data:Article) {
     return request({
-      url: '/api/article/add',
+      url: '/article/add',
       method: 'post',
       data
     })
   }
   export function uploadImg(data:string) {
     return request({
-      url: '/api/article/uploading',
+      url: '/article/uploading',
       method: 'post',
       data:{data},
       // headers:{'Content-Type':"application/x-www-form-urlencoded"}
@@ -50,7 +50,7 @@ export function saveMarkdownArticle(data:Article) {
   }
   export function getImg(msg:string) {
     return request({
-      url: '/api/article/image/'+msg,
+      url: '/article/image/'+msg,
       method: 'get',
       params:{msg},
       // headers:{'Content-Type':"application/x-www-form-urlencoded"}
