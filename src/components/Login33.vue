@@ -28,7 +28,7 @@
             type="text"
             placeholder="Username"
             v-model="regForm.username"
-          
+
           />
           <input
             class="form__input"
@@ -83,7 +83,7 @@
             <input type="checkbox" v-model="loginForm.checked">
         </div>
           <a class="form__link">Forgot your password?</a>
-        
+
           <button class="form__button button submit" @click.prevent="submitForm">
             登录
           </button>
@@ -122,6 +122,7 @@
 <script>
 import { login ,getSession,register} from "../api/api";
 import { Message } from "element-ui";
+import { Base64 } from 'js-base64'
 export default {
   name: "Login33",
   data: function () {
@@ -148,7 +149,7 @@ created(){
    var vm = this;
       // 在页面加载时从cookie获取登录信息
       let username = vm.getCookie("username");
-      let password = vm.getCookie("password");
+      let password = Base64.decode( vm.getCookie("password"));
 
       // 如果存在赋值给表单，并且将记住密码勾选
       if (username) {
@@ -164,27 +165,27 @@ created(){
         Message("账号或密码不能为空");
       } else {
         this.setUserInfo();
-        console.log("111")
+        // console.log("111")
         login(this.loginForm.password, this.loginForm.username).then((res) => {
-          console.log(res);
+          // console.log(res);
             localStorage.setItem("token",res.sessionId)
             this.$router.push("/Menu/CurrentWeek");
           if (res == "Bad credentials") {
             Message("账号或密码错误，请重试");
-          } 
+          }
        } )}},
     register(){
        if (this.regForm.password === '' || this.regForm.username === '' || this.regForm.email === '') {
         Message('账号或密码或邮箱不能为空')
       } else {
-        
+
         console.log(this.regForm)
         register(this.regForm).then((res) => {
           console.log(res)
           if (res.status == 'success') {
               Message("注册成功，请重新登录")
             this.$router.push('/')
-          } 
+          }
           else if(res.msg=="用户名重复，注册失败!"){
               Message("用户名重复，请联系管理员")
           }
@@ -198,13 +199,12 @@ created(){
       this.isActive = !this.isActive;
     },
     setUserInfo() {
-        
+
         // 判断用户是否勾选记住密码，如果勾选，向cookie中储存登录信息，
         // 如果没有勾选，储存的信息为空
         if (this.loginForm.checked) {
-
          this.setCookie("username", this.loginForm.username);
-          this.setCookie("password", this.loginForm.password);
+          this.setCookie("password",Base64.encode( this.loginForm.password));
           this.setCookie("checked", this.loginForm.checked);
         } else {
           this.setCookie("username", "");

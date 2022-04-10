@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="menu">
-  
+
     <router-link class="blog-name" to="/Menu/CurrentWeek" style="text-decoration: none;">Visualize Group </router-link>
     <el-menu
       :default-active="$route.path"
@@ -10,7 +10,7 @@
       @select="handleSelect"
        style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04); "
     >
-      
+
       <el-menu-item index="/Menu/CurrentWeek">本周周报</el-menu-item>
 
       <el-submenu index="2">
@@ -41,7 +41,7 @@
     </el-menu>
     <router-view :key="$route.fullPath" style="box-shadow: 10px 10px 10px #d1d9e6, -10px -10px 10px #f9f9f9;"></router-view>
   </div>
-  
+
 </template>
 
 <script>
@@ -57,18 +57,14 @@ export default {
   beforeUpdated() {
     var t = this.$route.path;
     var endIndex = t.lastIndexOf("/");
-    console.log("hjh" + endIndex);
   },
   created() {
     getUsers().then((r) => {
-      console.log(r)
       this.UserList = r;
-      console.log(this.UserList);
     });
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
       this.$router.push(key);
     },
     test(uid,username) {
@@ -97,7 +93,7 @@ height: auto;
   text-align: center;
   margin: auto;
   background-color: #ecf0f3;
-  
+
 }
 .el-menu-item .template {
   font-size: 16px;

@@ -3,17 +3,17 @@
    v-loading="loading"
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading">
-    
+
     <el-container
       style="
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
       "
-     
+
     >
       <el-header class="tit" height="40px"
         >
         <div>本周周报</div>
-       
+
           <div
             class="expand"
             v-if="activeName.length === 0"
@@ -26,7 +26,7 @@
             v-else
             @click="allShrink"
             ><el-link icon="el-icon-arrow-up">折叠所有</el-link></div>
-     
+
       </el-header>
       <el-main class="mains">
         <el-card class="box-card" v-show="postListPerWeek.length == 0">
@@ -120,14 +120,13 @@ export default {
       this.activeName = [];
     },
     edit(aid) {
-      console.log(aid);
+
       this.$router.push({ path: "/Menu/Wedit", query: { Aid: aid } });
     },
   },
   created() {
     let time = getDate();
     getPostsByWeek(time).then((r) => {
-      console.log(r)
       this.postListPerWeek = r;
      this.loading=false;
     });

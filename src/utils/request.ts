@@ -4,11 +4,13 @@ import router from '../router'
 
 let baseURL = "/api"
 if(process.env.NODE_ENV === "development"){
-  baseURL = "http://192.168.196.22:8082"
+  baseURL = "http://localhost:8082"
 }else if (process.env.NODE_ENV === "production"){
-  baseURL = "http://47.101.198.23:8082"
+  baseURL = "http://yhli.work/api"
 }
 // create an axios instance
+// 默认情况下浏览器对跨域请求不会携带 Cookie
+axios.defaults.withCredentials=true;//让ajax携带cookie
 const request = axios.create({
   baseURL,
 // baseURL: "http://192.168.196.22:8082", // url = base url + request url
@@ -27,10 +29,10 @@ request.interceptors.request.use(
  },
  error=>{
    return Promise.reject(error);
-   
+
  }
- 
- 
+
+
 )
 
 // response interceptor
@@ -50,10 +52,10 @@ request.interceptors.response.use(data=>{
     }).then(() => {
       localStorage.clear()
       location.reload()
-     
+
     })
   }
-   
+
     return res
 }, err=> {
 //==============  错误处理  ====================

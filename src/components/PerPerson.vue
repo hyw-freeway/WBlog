@@ -68,7 +68,6 @@ export default {
     } else {
       getPostsByUid(this.uid)
         .then((r) => {
-          console.log(r)
           this.postListPerPerson = r;
           this.loading=false
         })

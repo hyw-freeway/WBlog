@@ -2,14 +2,16 @@ module.exports = {
     //Solution For Issue:You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build.
     //zhengkai.blog.csdn.net
     runtimeCompiler: true,
-    
+    //todo：打包的时候很重要的配置
+    publicPath: ' /weekfront/',
+
     devServer: {
       host: "0.0.0.0",
-      port: 8081, // 端口号
+      port: 8085, // 端口号
       https: false, // https:{type:Boolean}
       open: true, //配置自动启动浏览器
       // proxy: 'http://localhost:4000' // 配置跨域处理,只有一个代理
-      
+
       // 配置多个代理
       // proxy: {
       // "/api": {
@@ -24,4 +26,3 @@ module.exports = {
       // }
       }
 }
-  

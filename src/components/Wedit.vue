@@ -40,7 +40,7 @@
     </div>
   </el-container>
 </template>
- 
+
 <script>
 import {
   getMarkdownArticleByAid,
@@ -144,7 +144,7 @@ export default {
                 return '/mavon-editor/katex/katex.min.js';
             },
         }
-      
+
     };
   },
   created() {
@@ -167,7 +167,6 @@ export default {
       } else {
         getMarkdownArticleByAid(aid)
           .then((r) => {
-            console.log(r)
             this.markdownForm.content =
               r.content == null ? "" : r.content;
             this.markdownForm.id = r.id;
@@ -186,7 +185,6 @@ export default {
       }else{
       console.log("保存文章，上传服务器");
       this.markdownForm.id = this.getAid();
-      console.log(this.markdownForm);
       if(this.markdownForm.id==null){
         createMarkdownArticle(this.markdownForm)
           .then((r) => {
@@ -223,24 +221,18 @@ export default {
       }*/
     },
     imgAdd(pos, $file) {
-      console.log(pos)
-      console.log($file);
       //添加图片，pos为位置
        let $vm=this.$refs.md
       let base64Data=$file.miniurl  //获取图片base64内容
-      console.log(typeof(base64Data))
-      console.log(base64Data)
       uploadImg(base64Data).then(r => {
-         console.log(r)
-        this.$refs.md.$img2Url(pos, '/api/article/image/'+r.msg);
+        //todo:
+        this.$refs.md.$img2Url(pos, 'http://yhli.work/api/article/image/'+r.msg);
       }).catch(e => {
         console.log(e)
       })
     },
     imgDel(pos, url) {
       //删除图片，并不是修改就会触发，仅支持工具栏操作
-      console.log(pos);
-      console.log(url);
     },
     goback() {
       this.$router.push("/Menu/CurrentWeek");
@@ -278,4 +270,4 @@ export default {
 }
 
 </style>
- 
+

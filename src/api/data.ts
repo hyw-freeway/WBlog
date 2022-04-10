@@ -6,7 +6,7 @@ export type Article = {
    // publishDate: string,
     title: string,
     uid: number
-},
+};
 export type RegForm = {
     password:string,
     email: string,

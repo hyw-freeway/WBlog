@@ -7,13 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "axios": "^0.24.0",
     "@vue/composition-api": "^0.6.4",
-    "mavon-editor": "^2.10.0",
-    "lodash": "^4.17.20",
+    "axios": "^0.24.0",
+    "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
+    "js-base64": "^3.7.2",
+    "lodash": "^4.17.20",
+    "mavon-editor": "^2.10.0",
+    "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0"
