@@ -165,7 +165,8 @@ created(){
         Message("账号或密码不能为空");
       } else {
         this.setUserInfo();
-        // console.log("111")
+        // this.$router.push("/Menu/CurrentWeek");
+       // console.log("111")
         login(this.loginForm.password, this.loginForm.username).then((res) => {
           // console.log(res);
             localStorage.setItem("token",res.sessionId)
@@ -173,7 +174,9 @@ created(){
           if (res == "Bad credentials") {
             Message("账号或密码错误，请重试");
           }
-       } )}},
+       } )
+      }
+       },
     register(){
        if (this.regForm.password === '' || this.regForm.username === '' || this.regForm.email === '') {
         Message('账号或密码或邮箱不能为空')
