@@ -88,12 +88,11 @@ export default {
 .menu {
   width: 70%;
  -webkit-box-flex:1;
-height: auto;
--moz-box-flex:1;
+ -moz-box-flex:1;
   text-align: center;
   margin: auto;
   background-color: #ecf0f3;
-
+height: 100%;
 }
 .el-menu-item .template {
   font-size: 16px;
