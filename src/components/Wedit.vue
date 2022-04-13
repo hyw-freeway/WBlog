@@ -39,7 +39,7 @@
       </el-row>
     </div>
  <el-footer>
-        <p class="footer">Copyright  2021 西南交通大学. All rights reserved. 蜀ICP备2022007878号 <a href="https://beian.miit.gov.cn/#/Integrated/index" style="color:#909399;text-decoration:none" >https://beian.miit.gov.cn/#/Integrated/index</a></p>
+        <p class="footer">Copyright  2022 西南交通大学. All rights reserved.  <a href="https://beian.miit.gov.cn/#/Integrated/index" style="color:#909399;text-decoration:none" >蜀ICP备2022007878号</a></p>
       </el-footer>
   </el-container>
 </template>
@@ -271,12 +271,9 @@ export default {
   font-weight: 700 !important;
   font-size: 14px !important;
 }
-.el-container{
-  min-height: 100vh;
-  align-items: center;
-}
+
 .footer{
-  height: 1vh;
+ bottom: 0;
   width: 100%;
   align-items: center;
   color: #909399;

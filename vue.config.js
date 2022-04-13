@@ -3,7 +3,7 @@ module.exports = {
     //zhengkai.blog.csdn.net
     runtimeCompiler: true,
     //todo：打包的时候很重要的配置
-    publicPath: ' /weekfront/',
+    publicPath: '/weekfront/',
 
     devServer: {
       host: "0.0.0.0",
