@@ -2,9 +2,9 @@
   <div id="app"
   >
     <router-view />
-     <el-footer>
+     <!-- <el-footer>
         <p class="footer">Copyright  2022 西南交通大学. All rights reserved.  <a href="https://beian.miit.gov.cn/#/Integrated/index" style="color:#909399;text-decoration:none" >蜀ICP备2022007878号</a></p>
-      </el-footer>
+      </el-footer> -->
   </div>
 </template>
 

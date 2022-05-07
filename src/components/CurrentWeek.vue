@@ -130,6 +130,7 @@ export default {
     let time = getDate();
     getPostsByWeek(time).then((r) => {
       this.postListPerWeek = r;
+      console.log(r)
      this.loading=false;
     });
   },
