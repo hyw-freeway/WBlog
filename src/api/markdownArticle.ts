@@ -15,35 +15,35 @@
 //     })
 //   }
 import request from '@/utils/request'
-import { Article } from './data'
+import { Article, Pic } from './data'
 
 export function saveMarkdownArticle(data:Article) {
     return request({
-      url: '/article/updateArticle',
-      method: 'put',
+      url: '/my/article/update',
+      method: 'post',
       data
     })
   }
   
   export function getMarkdownArticleByAid(id:number) {
     return request({
-      url: '/article/show/'+id,
+      url: 'my/article/info',
       method: 'get',
       params:{id}
     })
   }
   export function createMarkdownArticle(data:Article) {
     return request({
-      url: '/article/add',
+      url: '/my/article/add',
       method: 'post',
       data
     })
   }
-  export function uploadImg(data:string) {
+  export function uploadImg(data:Pic) {
     return request({
-      url: '/article/uploading',
+      url: '/my/article/uploadpic',
       method: 'post',
-      data:{data},
+      data,
       // headers:{'Content-Type':"application/x-www-form-urlencoded"}
       
     })

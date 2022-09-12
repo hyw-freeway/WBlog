@@ -11,6 +11,7 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 Vue.use(ElementUI) //使用elementUI
+
 // 全局路由构造函数，判断是否登录和要跳转到页面
 router.beforeEach((to, from, next) => {
 

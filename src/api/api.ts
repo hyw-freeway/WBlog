@@ -5,7 +5,7 @@ import { Article ,RegForm } from './data'
   
   export function getPostsByWeek(time:string) {
     return request({
-      url: '/article/selectAllReports',
+      url: '/my/article/listbytime',
       method: 'get',
       params:{time},
     })
@@ -19,28 +19,28 @@ import { Article ,RegForm } from './data'
   }
   export function getUsers() {
     return request({
-      url: '/selectAllUsers',
+      url: '/my/userall',
       method: 'get',
      
     })
   }
   export function getPostsByUid(uid:number) {
     return request({
-      url: '/article/select/'+uid,
+      url: '/my/article/listbyuid',
       method: 'get',
       params:{uid},
     })
   }
   export function login(password:string,username:string) {
     return request({
-      url: '/login',
+      url: '/api/login',
       method: 'post',
-      params:{password,username},
+      data:{password,username},
     })
   }
   export function register(data:RegForm) {
     return request({
-      url: '/register',
+      url: '/api/reguser',
       method: 'post',
       data
     })

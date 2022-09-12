@@ -168,9 +168,9 @@ export default {
         getMarkdownArticleByAid(aid)
           .then((r) => {
             this.markdownForm.content =
-              r.content == null ? "" : r.content;
-            this.markdownForm.id = r.id;
-            this.markdownForm.title = r.title;
+              r.data.content == null ? "" : r.data.content;
+            this.markdownForm.id = r.data.id;
+            this.markdownForm.title = r.data.title;
             // this.markdownForm.type=r.data.type
           })
           .catch((e) => {
@@ -185,8 +185,9 @@ export default {
       }else{
       console.log("保存文章，上传服务器");
       this.markdownForm.id = this.getAid();
-      if(this.markdownForm.id==null){
-        createMarkdownArticle(this.markdownForm)
+      console.log(this.markdownForm.id)
+      if(this.markdownForm.id===-1){
+        createMarkdownArticle({"title":this.markdownForm.title,"content":this.markdownForm.content})
           .then((r) => {
             this.$message.success('创建成功')
             // this.markdownForm.id=r.data.id
@@ -223,10 +224,13 @@ export default {
     imgAdd(pos, $file) {
       //添加图片，pos为位置
        let $vm=this.$refs.md
+       console.log($file)
       let base64Data=$file.miniurl  //获取图片base64内容
-      uploadImg(base64Data).then(r => {
+      let picname=$file.name
+      uploadImg({picname,base64Data}).then(r => {
+        console.log('http://127.0.0.1:3007/images/'+r)
         //todo:
-        this.$refs.md.$img2Url(pos, 'http://yhli.work/api/article/image/'+r.msg);
+        this.$refs.md.$img2Url(pos, 'http://127.0.0.1:3007/images/'+r);
       }).catch(e => {
         console.log(e)
       })
@@ -238,7 +242,8 @@ export default {
       this.$router.push("/Menu/CurrentWeek");
     },
     getAid() {
-      var aid = this.$route.query.Aid;
+      var aid = this.$route.query.Aid?this.$route.query.Aid:-1;
+      
       return aid;
     },
   },

@@ -128,7 +128,7 @@ export default {
     console.log(time);
     getPostsByWeek(time).then((r) => {
       console.log(r)
-      this.postListPerWeek = r;
+      this.postListPerWeek = r.data;
       this.loading=false
     });
      }else{

@@ -13,3 +13,7 @@ export type RegForm = {
     enable: boolean,
     username: string
 }
+export type Pic = {
+   picname:string,
+   base64Data:string
+};

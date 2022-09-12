@@ -28,7 +28,6 @@
             type="text"
             placeholder="Username"
             v-model="regForm.username"
-
           />
           <input
             class="form__input"
@@ -42,13 +41,15 @@
             placeholder="Password"
             v-model="regForm.password"
           />
-          <button class="form__button button submit" @click="register">注册</button>
+          <button class="form__button button submit" @click="register">
+            注册
+          </button>
         </form>
       </div>
       <div
         :class="{ container: true, acontainer: true, 'is-hidden': !isActive }"
       >
-        <form class="form" id="b-form" method="" >
+        <form class="form" id="b-form" method="">
           <h2 class="form_title title1">周报系统-登录</h2>
           <div class="form__icons">
             <img
@@ -78,13 +79,16 @@
             v-model="loginForm.password"
             @keyup.enter="submitForm()"
           />
-            <div class="form_item">
+          <div class="form_item">
             <label>记住密码 </label>
-            <input type="checkbox" v-model="loginForm.checked">
-        </div>
+            <input type="checkbox" v-model="loginForm.checked" />
+          </div>
           <a class="form__link">Forgot your password?</a>
 
-          <button class="form__button button submit" @click.prevent="submitForm">
+          <button
+            class="form__button button submit"
+            @click.prevent="submitForm"
+          >
             登录
           </button>
         </form>
@@ -120,9 +124,9 @@
 </template>
 
 <script>
-import { login ,getSession,register} from "../api/api";
+import { login, getSession, register } from "../api/api";
 import { Message } from "element-ui";
-import { Base64 } from 'js-base64'
+import { Base64 } from "js-base64";
 export default {
   name: "Login33",
   data: function () {
@@ -130,35 +134,34 @@ export default {
       isActive: true,
       loginForm: {
         username: "",
-     password: "",
-     checked:""
+        password: "",
+        checked: "",
       },
       regForm: {
         username: "",
-     password: "",
+        password: "",
         email: "",
-        enabled: true
+        enabled: true,
       },
       loginRules: {
         username: [{ required: true, message: "请输入账号", trigger: "blur" }],
-      password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
     };
   },
-created(){
-   var vm = this;
-      // 在页面加载时从cookie获取登录信息
-      let username = vm.getCookie("username");
-      let password = Base64.decode( vm.getCookie("password"));
+  created() {
+    var vm = this;
+    // 在页面加载时从cookie获取登录信息
+    let username = vm.getCookie("username");
+    let password = Base64.decode(vm.getCookie("password"));
 
-      // 如果存在赋值给表单，并且将记住密码勾选
-      if (username) {
-        vm.loginForm.username = username;
-        vm.loginForm.password = password;
-        vm.loginForm.checked = true;
-      }
-
-},
+    // 如果存在赋值给表单，并且将记住密码勾选
+    if (username) {
+      vm.loginForm.username = username;
+      vm.loginForm.password = password;
+      vm.loginForm.checked = true;
+    }
+  },
   methods: {
     submitForm() {
       if (this.loginForm.password === "" || this.loginForm.username === "") {
@@ -166,80 +169,81 @@ created(){
       } else {
         this.setUserInfo();
         // this.$router.push("/Menu/CurrentWeek");
-       // console.log("111")
+        // console.log("111")
         login(this.loginForm.password, this.loginForm.username).then((res) => {
-          // console.log(res);
-            localStorage.setItem("token",res.sessionId)
-            this.$router.push("/Menu/CurrentWeek");
+           console.log(res);
+          localStorage.setItem("token", res.token);
+          this.$router.push("/Menu/CurrentWeek");
           if (res == "Bad credentials") {
             Message("账号或密码错误，请重试");
           }
-       } )
+        });
       }
-       },
-    register(){
-       if (this.regForm.password === '' || this.regForm.username === '' || this.regForm.email === '') {
-        Message('账号或密码或邮箱不能为空')
+    },
+    register() {
+      if (
+        this.regForm.password === "" ||
+        this.regForm.username === "" ||
+        this.regForm.email === ""
+      ) {
+        Message("账号或密码或邮箱不能为空");
       } else {
-
-        console.log(this.regForm)
+        console.log(this.regForm);
         register(this.regForm).then((res) => {
-          console.log(res)
-          if (res.status == 'success') {
-              Message("注册成功，请重新登录")
-            this.$router.push('/')
+          console.log(res);
+          if (res.status == 0) {
+            Message("注册成功，请重新登录");
+            this.$router.push("/");
+          } 
+           else {
+            Message("注册失败，请重新注册");
           }
-          else if(res.msg=="用户名重复，注册失败!"){
-              Message("用户名重复，请联系管理员")
-          }
-          else {
-            Message('注册失败，请重新注册')
-          }
-        })
+        });
       }
     },
     flip() {
       this.isActive = !this.isActive;
     },
     setUserInfo() {
-
-        // 判断用户是否勾选记住密码，如果勾选，向cookie中储存登录信息，
-        // 如果没有勾选，储存的信息为空
-        if (this.loginForm.checked) {
-         this.setCookie("username", this.loginForm.username);
-          this.setCookie("password",Base64.encode( this.loginForm.password));
-          this.setCookie("checked", this.loginForm.checked);
-        } else {
-          this.setCookie("username", "");
-          this.setCookie("password", "");
-        }
-      },
-  // 获取cookie
-      getCookie: function(key) {
-        if (document.cookie.length > 0) {
-          var start = document.cookie.indexOf(key + '=')
-          if (start !== -1) {
-            start = start + key.length + 1
-            var end = document.cookie.indexOf(';', start)
-            if (end === -1) end = document.cookie.length
-            return unescape(document.cookie.substring(start, end))
-          }
-        }
-        return ''
-      },
-      // 保存cookie
-      setCookie(cName, value, expiredays) {
-
-        var exdate = new Date()
-        exdate.setDate(exdate.getDate() + expiredays)
-        document.cookie = cName + '=' + decodeURIComponent(value) +
-          ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
+      // 判断用户是否勾选记住密码，如果勾选，向cookie中储存登录信息，
+      // 如果没有勾选，储存的信息为空
+      if (this.loginForm.checked) {
+        this.setCookie("username", this.loginForm.username);
+        this.setCookie("password", Base64.encode(this.loginForm.password));
+        this.setCookie("checked", this.loginForm.checked);
+      } else {
+        this.setCookie("username", "");
+        this.setCookie("password", "");
       }
+    },
+    // 获取cookie
+    getCookie: function (key) {
+      if (document.cookie.length > 0) {
+        var start = document.cookie.indexOf(key + "=");
+        if (start !== -1) {
+          start = start + key.length + 1;
+          var end = document.cookie.indexOf(";", start);
+          if (end === -1) end = document.cookie.length;
+          return unescape(document.cookie.substring(start, end));
+        }
+      }
+      return "";
+    },
+    // 保存cookie
+    setCookie(cName, value, expiredays) {
+      var exdate = new Date();
+      exdate.setDate(exdate.getDate() + expiredays);
+      document.cookie =
+        cName +
+        "=" +
+        decodeURIComponent(value) +
+        (expiredays == null ? "" : ";expires=" + exdate.toGMTString());
+    },
   },
 };
 </script>
 
-<style  lang="scss">
+<style lang="scss">
 @import "../css/style.css";
 .b {
   width: 100%;

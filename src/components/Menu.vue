@@ -60,7 +60,8 @@ export default {
   },
   created() {
     getUsers().then((r) => {
-      this.UserList = r;
+      console.log(r)
+      this.UserList = r.data;
     });
   },
   methods: {

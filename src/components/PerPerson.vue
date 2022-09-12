@@ -68,7 +68,8 @@ export default {
     } else {
       getPostsByUid(this.uid)
         .then((r) => {
-          this.postListPerPerson = r;
+          console.log(r)
+          this.postListPerPerson = r.data;
           this.loading=false
         })
         .catch((e) => {

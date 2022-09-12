@@ -41,7 +41,7 @@
             :disabled="postListPerWeek.length == 0"
           >
             <template slot="title">
-              <div class="username">{{ item.author.username }}</div>
+              <div class="username">{{ item.author_name }}</div>
               <!-- <div class="title-a">{{ item.title }}</div> -->
 
               <div class="check">
@@ -129,7 +129,7 @@ export default {
   created() {
     let time = getDate();
     getPostsByWeek(time).then((r) => {
-      this.postListPerWeek = r;
+      this.postListPerWeek = r.data;
       console.log(r)
      this.loading=false;
     });

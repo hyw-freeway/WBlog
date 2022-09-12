@@ -4,7 +4,7 @@ import router from '../router'
 
 let baseURL = "/api"
 if(process.env.NODE_ENV === "development"){
-  baseURL = "http://localhost:8082"
+  baseURL = "http://127.0.0.1:3007"
 }else if (process.env.NODE_ENV === "production"){
   baseURL = "http://yhli.work/api"
 }
