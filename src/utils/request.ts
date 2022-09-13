@@ -10,7 +10,7 @@ if(process.env.NODE_ENV === "development"){
 }
 // create an axios instance
 // 默认情况下浏览器对跨域请求不会携带 Cookie
-axios.defaults.withCredentials=true;//让ajax携带cookie
+//axios.defaults.withCredentials=true;//让ajax携带cookie
 const request = axios.create({
   baseURL,
 // baseURL: "http://192.168.196.22:8082", // url = base url + request url

@@ -173,6 +173,7 @@ export default {
         login(this.loginForm.password, this.loginForm.username).then((res) => {
            console.log(res);
           localStorage.setItem("token", res.token);
+          localStorage.setItem("username", this.loginForm.username);
           this.$router.push("/Menu/CurrentWeek");
           if (res == "Bad credentials") {
             Message("账号或密码错误，请重试");

@@ -116,6 +116,7 @@ export default {
           { min: 1, max: 80, message: "长度在1到80个字符", trigger: "blur" },
         ],
       },
+      author_name:"",
       lastSaveTime: null,
       timer: null,
       externalLink: {
@@ -187,7 +188,11 @@ export default {
       this.markdownForm.id = this.getAid();
       console.log(this.markdownForm.id)
       if(this.markdownForm.id===-1){
-        createMarkdownArticle({"title":this.markdownForm.title,"content":this.markdownForm.content})
+        this.author_name = localStorage.getItem("username");
+        createMarkdownArticle(
+          {title:this.markdownForm.title,
+          content:this.markdownForm.content,
+          author_name: this.author_name,})
           .then((r) => {
             this.$message.success('创建成功')
             // this.markdownForm.id=r.data.id
@@ -230,7 +235,7 @@ export default {
       uploadImg({picname,base64Data}).then(r => {
         console.log('http://127.0.0.1:3007/images/'+r)
         //todo:
-        this.$refs.md.$img2Url(pos, 'http://127.0.0.1:3007/images/'+r);
+        this.$refs.md.$img2Url(pos, 'http://127.0.0.1:3007/images/'+r.picname);
       }).catch(e => {
         console.log(e)
       })
